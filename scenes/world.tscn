@@ -56,3 +56,17 @@ state = 3
 script = ExtResource("8_ll28p")
 grid = NodePath("../..")
 state = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 171.0
+offset_top = 967.0
+offset_right = -1001.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.707966, 0.707967, 0.707967, 0.14902)
