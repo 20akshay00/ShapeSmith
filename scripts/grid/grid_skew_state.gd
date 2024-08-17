@@ -6,15 +6,16 @@ extends GridState
 @export var SKEW_SENSITIVITY: int = 700
 var _skew_dir: int = 0
 
-func on_draw() -> void:
-	var mouse_pos: Vector2 = grid.get_local_mouse_position()
-	var target_idx: int = -1
+func enter() -> void:
+	grid._show_focus = false
+
+func exit() -> void:
+	pass
 	
-	for point in grid._points:
-		grid.draw_circle(point, 2, Color.AQUA)
+func on_draw() -> void:
+	pass
 
 func on_input(event: InputEvent) -> void:
-
 	if event is InputEventMouseMotion:
 		if _skew_dir == 0: 
 			_skew_dir = 1 if (abs(event.relative.x) > abs(event.relative.y)) else -1
@@ -30,7 +31,7 @@ func on_input(event: InputEvent) -> void:
 				grid._points[idx] = _skew_y(grid._points[idx], skew_factor_new - skew_factor.y)
 			skew_factor.y = skew_factor_new
 
-	elif event.is_action_released("drag"):
+	elif event.is_action_released("skew"):
 		_skew_dir = 0
 		transition_requested.emit(self, State.BASE)
 		

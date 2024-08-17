@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bb82g0nfa5wkf"]
+[gd_scene load_steps=9 format=3 uid="uid://bb82g0nfa5wkf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kdrbg"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_y2nqn"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://scripts/grid/grid_base_state.gd" id="5_cymmi"]
 [ext_resource type="Script" path="res://scripts/grid/grid_skew_state.gd" id="6_2lcr5"]
 [ext_resource type="Script" path="res://scripts/grid/grid_draw_state.gd" id="7_ohwr6"]
-[ext_resource type="Script" path="res://scripts/grid/grid_rotate_state.gd" id="8_ll28p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sim6x"]
 shader = ExtResource("2_y2nqn")
@@ -51,8 +50,3 @@ state = 1
 script = ExtResource("7_ohwr6")
 grid = NodePath("../..")
 state = 3
-
-[node name="GridRotateState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
-script = ExtResource("8_ll28p")
-grid = NodePath("../..")
-state = 2
