@@ -2,7 +2,7 @@
 class_name Grid
 extends Node2D
 
-@export var grid_size: Vector2 = Vector2(15, 15)
+@export var grid_size: Vector2 = Vector2(8, 8)
 @export var cell_size: Vector2 = Vector2(48, 48)
 @export var POINT_CLICK_SENSITIVITY: float = 15.
 
@@ -12,6 +12,7 @@ var _show_focus: bool = true
 
 var _focus_idx: int
 var _shape_idx: Array[int]
+var _shape_complete: bool = false
 
 func _ready() -> void:	
 	for i in range(-grid_size.x/2, grid_size.x/2 + 1):
@@ -26,6 +27,7 @@ func _draw() -> void:
 	
 	for idx in len(_shape_idx) - 1:
 		draw_line(_points[_shape_idx[idx]], _points[_shape_idx[idx + 1]], Color.WHITE, 1)
+	if _shape_complete: draw_line(_points[_shape_idx[0]], _points[_shape_idx[-1]], Color.WHITE, 1)
 
 	for idx in len(_points):
 		var mouse_pos: Vector2 = get_local_mouse_position()	
