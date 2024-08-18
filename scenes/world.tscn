@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bb82g0nfa5wkf"]
+[gd_scene load_steps=17 format=3 uid="uid://bb82g0nfa5wkf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kdrbg"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_y2nqn"]
@@ -8,10 +8,13 @@
 [ext_resource type="Script" path="res://scripts/grid/grid_skew_state.gd" id="6_2lcr5"]
 [ext_resource type="Script" path="res://scripts/grid/grid_draw_state.gd" id="7_ohwr6"]
 [ext_resource type="Script" path="res://scripts/grid/grid_rotate_state.gd" id="8_ll28p"]
+[ext_resource type="Texture2D" uid="uid://hsj1rscd2dxx" path="res://assets/art/gizmo_reset.png" id="9_4jf2w"]
 [ext_resource type="Texture2D" uid="uid://bdkyxk8us8ydi" path="res://assets/art/gizmo_rotate.png" id="9_63hv2"]
 [ext_resource type="Script" path="res://scripts/shape_spawner.gd" id="9_mpfct"]
 [ext_resource type="Texture2D" uid="uid://ut3j8wtg8js6" path="res://assets/art/gizmo_skewx.png" id="10_8l75a"]
+[ext_resource type="Texture2D" uid="uid://c148gsn00kgx2" path="res://assets/art/gizmo_remove_points.png" id="10_hqd2n"]
 [ext_resource type="Texture2D" uid="uid://neso1rxocdj8" path="res://assets/art/gizmo_skewy.png" id="11_e1diq"]
+[ext_resource type="Texture2D" uid="uid://bntyncav0x05h" path="res://assets/art/gizmo_fill_points.png" id="11_qavym"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sim6x"]
 shader = ExtResource("2_y2nqn")
@@ -67,9 +70,9 @@ state = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 180.0
+offset_left = 302.0
 offset_top = 968.0
-offset_right = -992.0
+offset_right = -1119.0
 offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -77,8 +80,25 @@ color = Color(0.707966, 0.707967, 0.707967, 0.14902)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/BottomBar"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -18.0
+offset_top = 1.0
+offset_right = 522.0
+offset_bottom = 115.0
+theme_override_constants/separation = 70
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/BottomBar/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("9_4jf2w")
+
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/BottomBar/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("10_hqd2n")
+
+[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/BottomBar/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("11_qavym")
 
 [node name="TopBar" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 15
