@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://bb82g0nfa5wkf"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_kdrbg"]
+[ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_y2nqn"]
+[ext_resource type="Script" path="res://scripts/grid/grid.gd" id="3_23af6"]
+[ext_resource type="Script" path="res://scripts/grid/grid_state_machine.gd" id="4_x8n5n"]
+[ext_resource type="Script" path="res://scripts/grid/grid_base_state.gd" id="5_cymmi"]
+[ext_resource type="Script" path="res://scripts/grid/grid_skew_state.gd" id="6_2lcr5"]
+[ext_resource type="Script" path="res://scripts/grid/grid_draw_state.gd" id="7_ohwr6"]
+[ext_resource type="Script" path="res://scripts/grid/grid_rotate_state.gd" id="8_ll28p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sim6x"]
+shader = ExtResource("2_y2nqn")
+shader_parameter/resolution = Vector2(1920, 1080)
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/zoom = 22.0
+shader_parameter/rotation = 0.0
+shader_parameter/translation = Vector2(0, 0)
+shader_parameter/skew_x_factor = 0.0
+shader_parameter/skew_y_factor = 0.0
+shader_parameter/thickness = 0.5
+shader_parameter/brightness = 0.3
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_kdrbg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_sim6x")
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Grid" type="Node2D" parent="."]
+position = Vector2(540, 540)
+script = ExtResource("3_23af6")
+
+[node name="StateMachine" type="Node" parent="Grid" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_x8n5n")
+initial_state = NodePath("GridBaseState")
+
+[node name="GridBaseState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
+script = ExtResource("5_cymmi")
+grid = NodePath("../..")
+
+[node name="GridSkewState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
+script = ExtResource("6_2lcr5")
+grid = NodePath("../..")
+state = 1
+
+[node name="GridDrawState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
+script = ExtResource("7_ohwr6")
+grid = NodePath("../..")
+state = 3
+
+[node name="GridRotateState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
+script = ExtResource("8_ll28p")
+grid = NodePath("../..")
+state = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 180.0
+offset_top = 968.0
+offset_right = -992.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.707966, 0.707967, 0.707967, 0.14902)

@@ -5,19 +5,19 @@ extends Node2D
 @export var LINE_THICKNESS: int = 2
 @export var LINE_COLOR: Color = Color.WHITE
 
-@export var POINT_SIZE: int = 2
+@export var POINT_SIZE: int = 3
 @export var POINT_COLOR: Color = Color.AQUA
 
-@export var POINT_SELECTED_SIZE: int = 4
+@export var POINT_SELECTED_SIZE: int = 5
 @export var POINT_SELECTED_COLOR: Color = Color.WHITE
 
-@export var grid_size: Vector2 = Vector2(10, 10)
+@export var grid_size: Vector2 = Vector2(8, 8)
 @export var cell_size: Vector2 = Vector2(48, 48)
 @export var POINT_CLICK_SENSITIVITY: float = 15.
 
 @export var x_grid_line_idx: Array
 @export var y_grid_line_idx: Array
-@export var GRID_LINE_THICKNESS: float = 2
+@export var GRID_LINE_THICKNESS: float = 3
 @export var GRID_LINE_COLOR: Color = Color(49, 122, 139, 0.2)
 
 @onready var _state_machine: GridStateMachine = $StateMachine
@@ -30,8 +30,8 @@ var _shape_idx: Array[int]
 var _shape_complete: bool = false
 
 func _ready() -> void:	
-	for i in range(-grid_size.x/2, grid_size.x/2):
-		for j in range(-grid_size.y/2, grid_size.y/2):
+	for i in Vector3(-(grid_size.x - 1)/2, grid_size.x/2, 1):
+		for j in Vector3(-(grid_size.y - 1)/2, grid_size.y/2, 1):
 			_points.push_back(Vector2(i, j) * cell_size)
 	
 	_points_default = _points.duplicate()
