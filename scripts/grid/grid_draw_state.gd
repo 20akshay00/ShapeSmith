@@ -24,7 +24,7 @@ func on_draw() -> void:
 		grid.draw_line(grid._points[_start_point_idx], grid.get_local_mouse_position(), LINE_COLOR_INVALID, grid.LINE_THICKNESS)
 			
 func on_input(event: InputEvent) -> void:
-	if event.is_action_pressed("draw") and grid._focus_idx > 0:
+	if event.is_action_pressed("draw") and grid._focus_idx >= 0:
 		var _next_point_idx = grid._focus_idx
 		
 		if _start_point_idx != _next_point_idx:

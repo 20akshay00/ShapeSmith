@@ -1,9 +1,11 @@
+class_name CustomShape
 extends Area2D
 
 var is_dragging: bool = false
 var drag_point: Vector2 = Vector2(0, 0)
 var can_drag: bool = true
 var _mouse_inside: bool = false
+var points: Array
 
 func _process(delta: float) -> void:
 	if is_dragging:
@@ -22,7 +24,7 @@ func _input(event):
 			$CollisionShape2D.set_deferred("disabled", false)
 
 func _set_collision_polygon():
-	var points: Array = $Polygon2D.polygon
+	points = $Polygon2D.polygon
 	var xmin: float = points.reduce(func(res, point): return min(point.x, res), 100000)
 	var xmax: float = points.reduce(func(res, point): return max(point.x, res), -100000)
 	var ymin: float = points.reduce(func(res, point): return min(point.y, res), 100000)
@@ -35,10 +37,14 @@ func _set_collision_polygon():
 	tween.tween_callback(func(): EventManager.shape_created.emit())
 	tween.tween_property(self, "scale", Vector2(1.15, 1.15), 0.2)
 	tween.tween_property(self, "scale", Vector2(1., 1.), 0.2)
-
+	tween.tween_callback(func(): $CollisionShape2D.set_deferred("disabled", false))
 
 func _on_mouse_entered() -> void:
 	_mouse_inside = true
 
 func _on_mouse_exited() -> void:
 	_mouse_inside = false
+
+func attach(parent: Creature) -> void:
+	reparent(parent)
+	parent.move_child(self, 3)

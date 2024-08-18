@@ -191,7 +191,7 @@ state = 2
 script = ExtResource("9_mpfct")
 
 [node name="ShapeCreature" parent="." instance=ExtResource("24_3k1kv")]
-position = Vector2(1531, 573)
+position = Vector2(1553, 449)
 
 [node name="Trash" type="Area2D" parent="."]
 position = Vector2(1717, 976)

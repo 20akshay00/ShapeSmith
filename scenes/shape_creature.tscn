@@ -1,11 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5s4pccawtaql"]
+[gd_scene load_steps=9 format=3 uid="uid://b5s4pccawtaql"]
 
 [ext_resource type="Script" path="res://scripts/shape_creature.gd" id="1_1iykf"]
 [ext_resource type="Texture2D" uid="uid://clxpdpldvfpvm" path="res://assets/art/ShapeBody.png" id="2_wf0am"]
 [ext_resource type="Texture2D" uid="uid://bqg3kmmjif7rs" path="res://assets/art/ShapeFace.png" id="3_vsb2i"]
+[ext_resource type="Texture2D" uid="uid://drl32ymxrfee6" path="res://assets/art/SuccessBarBG.png" id="4_n615p"]
+[ext_resource type="Shader" path="res://shaders/progressbar.gdshader" id="5_2q3ld"]
+[ext_resource type="Texture2D" uid="uid://b1ara5k8a35mc" path="res://assets/art/SuccessBarFG.png" id="6_rw203"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dsl4r"]
 size = Vector2(533, 525)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_im1xu"]
+shader = ExtResource("5_2q3ld")
+shader_parameter/percent = 0.0
 
 [node name="ShapeCreature" type="Area2D"]
 modulate = Color(0.683077, 0.683077, 0.683077, 1)
@@ -21,12 +28,28 @@ position = Vector2(-69, -84)
 scale = Vector2(1.205, 1.205)
 texture = ExtResource("2_wf0am")
 
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 1)
+
 [node name="Face" type="Sprite2D" parent="."]
-position = Vector2(-234.5, -232.5)
+position = Vector2(-237, -242)
 scale = Vector2(0.51, 0.51)
 texture = ExtResource("3_vsb2i")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0, 0, 0, 1)
+[node name="SuccessBar" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(2, 18)
+metadata/_edit_group_ = true
+
+[node name="Background" type="Sprite2D" parent="SuccessBar"]
+position = Vector2(-71, -416)
+scale = Vector2(1, 0.74359)
+texture = ExtResource("4_n615p")
+
+[node name="Foreground" type="Sprite2D" parent="SuccessBar"]
+material = SubResource("ShaderMaterial_im1xu")
+position = Vector2(-72, -416)
+scale = Vector2(1, 0.692308)
+texture = ExtResource("6_rw203")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
