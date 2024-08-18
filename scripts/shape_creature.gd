@@ -24,16 +24,17 @@ func _on_area_entered(area: Area2D) -> void:
 		
 		var shape_centre_of_mass: Vector2 = area.points.reduce(func(res, point): return res + point, Vector2(0, 0)) / len(area.points)
 		shape_normalized = area.points.map(func(val): return val - shape_centre_of_mass)
-		
+		var shape_area: float = calculate_area(shape_normalized)
+
 		var hole_centre_of_mass: Vector2 = hole_vertices.reduce(func(res, point): return res + point, Vector2(0, 0)) / len(hole_vertices)
 		hole_normalized = hole_vertices.map(func(val): return val - hole_centre_of_mass)
-		
+		var hole_area: float = calculate_area(hole_normalized)
+
 		var excluded_polygons := Geometry2D.exclude_polygons(PackedVector2Array(shape_normalized), PackedVector2Array(hole_normalized))
 		var excluded_area: float = excluded_polygons.reduce(func(res, polygon): return res + calculate_area(polygon), 0.)
-		var hole_area: float = calculate_area(hole_normalized)
 		
-		_display_result(1 - excluded_area/hole_area)
-		print(excluded_area, " ", hole_area, " ", excluded_area/hole_area)
+		_display_result(1 - excluded_area/(shape_area + hole_area))
+		#print(excluded_area, " ", hole_area, " ", shape_area)
 
 func calculate_area(mesh_vertices: Array) -> float:
 	var result := 0.0

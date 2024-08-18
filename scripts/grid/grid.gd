@@ -31,7 +31,7 @@ var _show_focus: bool = true
 var _focus_idx: int
 var _shape_idx: Array[int]
 var _shape_complete: bool = false
-
+var _block_shape_spawn: bool = false # some spagetti to disallow spamming the create shape button between tween duration
 var reset_tween: Tween
 
 func _ready() -> void:	
@@ -105,7 +105,8 @@ func _on_clear_points() -> void:
 	_shape_complete = false
 	
 func _on_fill_points() -> void:
-	if _shape_complete:
+	if _shape_complete and not _block_shape_spawn:
+		_block_shape_spawn = true
 		var shape = shape_scene.instantiate()
 		var centre_of_mass: Vector2 = _shape_idx.reduce(func(res, idx): return res + _points[idx], Vector2(0, 0)) / len(_shape_idx)
 		
@@ -117,3 +118,4 @@ func _on_fill_points() -> void:
 func _on_shape_created() -> void:
 	_shape_idx = []
 	_shape_complete = false
+	_block_shape_spawn = false
