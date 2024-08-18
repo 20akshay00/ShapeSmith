@@ -29,3 +29,5 @@ texture = ExtResource("3_vsb2i")
 position = Vector2(103, 26)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-42, -263, -197, -88, -28, 130, -88, -102)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

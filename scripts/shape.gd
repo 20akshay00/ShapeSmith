@@ -19,4 +19,11 @@ func _input(event):
 			$CollisionShape2D.set_deferred("disabled", false)
 
 func _set_collision_polygon():
-	$CollisionShape2D.shape.segments = $Polygon2D.polygon
+	var collision_points: Array[Vector2] = [$Polygon2D.polygon[0]]
+	for point in $Polygon2D.polygon.slice(1, -1): collision_points.append_array([point, point])
+	collision_points.push_back($Polygon2D.polygon[-1])
+	$CollisionShape2D.shape.segments = PackedVector2Array(collision_points)
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property($Polygon2D, "modulate:a", 0.3, 1)
+	tween.tween_callback(func(): EventManager.shape_created.emit())

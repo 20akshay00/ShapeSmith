@@ -48,6 +48,8 @@ func _ready() -> void:
 	EventManager.reset_transform.connect(_on_reset_transform)
 	EventManager.clear_points.connect(_on_clear_points)
 	EventManager.fill_points.connect(_on_fill_points)
+	
+	EventManager.shape_created.connect(_on_shape_created)
 
 func _draw() -> void:
 	_state_machine.on_draw()
@@ -111,6 +113,7 @@ func _on_fill_points() -> void:
 		shape.call_deferred("_set_collision_polygon")
 		get_parent().add_child(shape)
 		shape.position = global_position + centre_of_mass
-		
-		_shape_idx = []
-		_shape_complete = false
+
+func _on_shape_created() -> void:
+	_shape_idx = []
+	_shape_complete = false
