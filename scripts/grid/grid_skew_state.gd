@@ -16,6 +16,11 @@ func exit() -> void:
 		grid._top_ui.set_skew_y_label(skew_factor.y)
 	_skew_dir = 0
 
+func reset() -> void:
+	grid._top_ui.set_skew_x_label(skew_factor.x)
+	grid._top_ui.set_skew_y_label(skew_factor.y)
+	_skew_dir = 0
+	
 func on_draw() -> void:
 	pass
 

@@ -31,6 +31,8 @@ var _focus_idx: int
 var _shape_idx: Array[int]
 var _shape_complete: bool = false
 
+var reset_tween: Tween
+
 func _ready() -> void:	
 	for i in Vector3(-(grid_size.x - 1)/2, grid_size.x/2, 1):
 		for j in Vector3(-(grid_size.y - 1)/2, grid_size.y/2, 1):
@@ -42,6 +44,9 @@ func _ready() -> void:
 	for i in grid_size.x: x_grid_line_idx.push_back([i, i + (grid_size.y - 1) * grid_size.x])
 	for idx in grid_size.y: y_grid_line_idx.push_back([idx * grid_size.x, (idx + 1) * grid_size.x - 1])
 		
+	EventManager.reset_transform.connect(_on_reset_transform)
+	EventManager.clear_points.connect(_on_clear_points)
+	EventManager.fill_points.connect(_on_fill_points)
 
 func _draw() -> void:
 	_state_machine.on_draw()
@@ -74,3 +79,27 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	_state_machine.on_input(event)
+
+func _on_reset_transform() -> void:
+	_state_machine.get_child(1).skew_factor = Vector2(0, 0)
+	_state_machine.get_child(1).reset()
+	_state_machine.get_child(3).angle = 0.
+	_state_machine.get_child(3).exit()
+	
+	if reset_tween: reset_tween.kill()
+	reset_tween = get_tree().create_tween()
+	reset_tween.set_parallel()
+	for idx in len(_points): 
+		reset_tween.tween_method(
+			func (new_points: Array[Vector2]): _points = new_points.duplicate(),
+			_points,
+			_points_default,
+			1.
+		)
+	
+func _on_clear_points() -> void:
+	_shape_idx = []
+	_shape_complete = false
+	
+func _on_fill_points() -> void:
+	pass
