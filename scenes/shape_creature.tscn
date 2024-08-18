@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5s4pccawtaql"]
+[gd_scene load_steps=12 format=3 uid="uid://b5s4pccawtaql"]
 
 [ext_resource type="Script" path="res://scripts/shape_creature.gd" id="1_1iykf"]
 [ext_resource type="Texture2D" uid="uid://clxpdpldvfpvm" path="res://assets/art/ShapeBody.png" id="2_wf0am"]
@@ -13,6 +13,44 @@ size = Vector2(533, 525)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_im1xu"]
 shader = ExtResource("5_2q3ld")
 shader_parameter/percent = 0.0
+
+[sub_resource type="Animation" id="Animation_n2r6g"]
+resource_name = "wobble"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0523599, -0.0523599, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_k3vyd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cry5g"]
+_data = {
+"RESET": SubResource("Animation_k3vyd"),
+"wobble": SubResource("Animation_n2r6g")
+}
 
 [node name="ShapeCreature" type="Area2D"]
 modulate = Color(0.683077, 0.683077, 0.683077, 1)
@@ -51,5 +89,10 @@ material = SubResource("ShaderMaterial_im1xu")
 position = Vector2(-72, -416)
 scale = Vector2(1, 0.692308)
 texture = ExtResource("6_rw203")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cry5g")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

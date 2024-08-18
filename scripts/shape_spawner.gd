@@ -1,11 +1,17 @@
 extends Node2D
 
+@onready var creature_scene: PackedScene = preload("res://scenes/shape_creature.tscn")
 
-# Called when the node enters the scene tree for the first time.
+var holes = [
+	 [Vector2(-42, -263), Vector2(-197, -88), Vector2(-28, 130), Vector2(-88, -102)]
+]
+
 func _ready() -> void:
-	pass # Replace with function body.
+	_spawn_creature(holes[0])
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _spawn_creature(hole: Array) -> void:
+	var creature := creature_scene.instantiate()
+	creature.global_position = Vector2(2520, 550)
+	creature.hole_vertices = hole.duplicate()
+	call_deferred("add_sibling", creature)
+	

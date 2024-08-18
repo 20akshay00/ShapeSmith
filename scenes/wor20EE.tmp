@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bb82g0nfa5wkf"]
+[gd_scene load_steps=29 format=3 uid="uid://bb82g0nfa5wkf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kdrbg"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_y2nqn"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dey0ey7l03ub1" path="res://assets/art/gizmo_remove_points_hover.png" id="15_37jha"]
 [ext_resource type="Texture2D" uid="uid://dscwtjo21vvgj" path="res://assets/art/gizmo_fill_points_clicked.png" id="17_yai8j"]
 [ext_resource type="Texture2D" uid="uid://c04ja7cuq23qf" path="res://assets/art/gizmo_fill_points_hover.png" id="18_lsite"]
+[ext_resource type="PackedScene" uid="uid://b5s4pccawtaql" path="res://scenes/shape_creature.tscn" id="24_3k1kv"]
 [ext_resource type="Texture2D" uid="uid://b4dw4gs4k4l1u" path="res://assets/art/TrashArea.png" id="25_0kt6u"]
 [ext_resource type="Script" path="res://scripts/trash.gd" id="25_k74m5"]
 
@@ -188,6 +189,9 @@ state = 2
 
 [node name="ShapeSpawner" type="Node2D" parent="."]
 script = ExtResource("9_mpfct")
+
+[node name="ShapeCreature" parent="." instance=ExtResource("24_3k1kv")]
+position = Vector2(1531, 573)
 
 [node name="Trash" type="Area2D" parent="."]
 position = Vector2(1717, 976)

@@ -4,7 +4,7 @@ extends Area2D
 var height: float
 var width: float
 
-var hole_vertices := [Vector2(-42, -263), Vector2(-197, -88), Vector2(-28, 130), Vector2(-88, -102)]
+var hole_vertices: Array
 
 var shape_normalized: Array
 var hole_normalized: Array
@@ -13,6 +13,13 @@ var opacity_tween: Tween
 
 func _ready() -> void:
 	$Polygon2D.polygon = PackedVector2Array(hole_vertices)
+	
+	$AnimationPlayer.play("wobble")
+	var tween := get_tree().create_tween()
+	tween.tween_property(self, "global_position:x", 1480, 5.)
+	tween.tween_callback(func(): $AnimationPlayer.stop())
+	tween.tween_property(self, "global_position:y", global_position.y - 20, 0.2)
+	tween.tween_property(self, "global_position:y", global_position.y + 20, 0.2)
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is CustomShape:
