@@ -46,34 +46,6 @@ material = SubResource("ShaderMaterial_sim6x")
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="Grid" type="Node2D" parent="." node_paths=PackedStringArray("_top_ui")]
-position = Vector2(540, 540)
-script = ExtResource("3_23af6")
-_top_ui = NodePath("../CanvasLayer/TopBar")
-
-[node name="StateMachine" type="Node" parent="Grid" node_paths=PackedStringArray("initial_state")]
-script = ExtResource("4_x8n5n")
-initial_state = NodePath("GridBaseState")
-
-[node name="GridBaseState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
-script = ExtResource("5_cymmi")
-grid = NodePath("../..")
-
-[node name="GridSkewState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
-script = ExtResource("6_2lcr5")
-grid = NodePath("../..")
-state = 1
-
-[node name="GridDrawState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
-script = ExtResource("7_ohwr6")
-grid = NodePath("../..")
-state = 3
-
-[node name="GridRotateState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
-script = ExtResource("8_ll28p")
-grid = NodePath("../..")
-state = 2
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="BottomBar" type="ColorRect" parent="CanvasLayer"]
@@ -181,6 +153,34 @@ texture = ExtResource("11_e1diq")
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "0.00"
+
+[node name="Grid" type="Node2D" parent="." node_paths=PackedStringArray("_top_ui")]
+position = Vector2(540, 540)
+script = ExtResource("3_23af6")
+_top_ui = NodePath("../CanvasLayer/TopBar")
+
+[node name="StateMachine" type="Node" parent="Grid" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_x8n5n")
+initial_state = NodePath("GridBaseState")
+
+[node name="GridBaseState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
+script = ExtResource("5_cymmi")
+grid = NodePath("../..")
+
+[node name="GridSkewState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
+script = ExtResource("6_2lcr5")
+grid = NodePath("../..")
+state = 1
+
+[node name="GridDrawState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
+script = ExtResource("7_ohwr6")
+grid = NodePath("../..")
+state = 3
+
+[node name="GridRotateState" type="Node" parent="Grid/StateMachine" node_paths=PackedStringArray("grid")]
+script = ExtResource("8_ll28p")
+grid = NodePath("../..")
+state = 2
 
 [node name="ShapeSpawner" type="Node2D" parent="."]
 script = ExtResource("9_mpfct")

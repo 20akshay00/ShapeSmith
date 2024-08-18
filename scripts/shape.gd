@@ -2,13 +2,15 @@ extends Area2D
 
 var is_dragging: bool = false
 var drag_point: Vector2 = Vector2(0, 0)
+var can_drag: bool = true
+var _mouse_inside: bool = false
 
 func _process(delta: float) -> void:
 	if is_dragging:
 		global_position = get_global_mouse_position() - drag_point
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and can_drag and _mouse_inside:
 		if event.is_action_pressed("draw"):
 			is_dragging = true
 			drag_point = get_local_mouse_position()
@@ -25,5 +27,13 @@ func _set_collision_polygon():
 	$CollisionShape2D.shape.segments = PackedVector2Array(collision_points)
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property($Polygon2D, "modulate:a", 0.3, 1)
+	tween.tween_property($Polygon2D, "modulate:a", 1., 1)
 	tween.tween_callback(func(): EventManager.shape_created.emit())
+
+
+func _on_mouse_entered() -> void:
+	print("hi")
+	_mouse_inside = true
+
+func _on_mouse_exited() -> void:
+	_mouse_inside = false
