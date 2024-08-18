@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bb82g0nfa5wkf"]
+[gd_scene load_steps=25 format=3 uid="uid://bb82g0nfa5wkf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kdrbg"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_y2nqn"]
@@ -16,7 +16,13 @@
 [ext_resource type="Texture2D" uid="uid://c148gsn00kgx2" path="res://assets/art/gizmo_remove_points.png" id="10_hqd2n"]
 [ext_resource type="Texture2D" uid="uid://neso1rxocdj8" path="res://assets/art/gizmo_skewy.png" id="11_e1diq"]
 [ext_resource type="Texture2D" uid="uid://bntyncav0x05h" path="res://assets/art/gizmo_fill_points.png" id="11_qavym"]
+[ext_resource type="Texture2D" uid="uid://y2synjym5rat" path="res://assets/art/gizmo_reset_clicked.png" id="11_x1ot1"]
+[ext_resource type="Texture2D" uid="uid://b2cpgftexitf" path="res://assets/art/gizmo_reset_hover.png" id="12_wfgwy"]
 [ext_resource type="Script" path="res://scenes/top_bar.gd" id="13_i5ak6"]
+[ext_resource type="Texture2D" uid="uid://dvr0sxiltbwna" path="res://assets/art/gizmo_remove_points_clicked.png" id="14_tjydh"]
+[ext_resource type="Texture2D" uid="uid://dey0ey7l03ub1" path="res://assets/art/gizmo_remove_points_hover.png" id="15_37jha"]
+[ext_resource type="Texture2D" uid="uid://dscwtjo21vvgj" path="res://assets/art/gizmo_fill_points_clicked.png" id="17_yai8j"]
+[ext_resource type="Texture2D" uid="uid://c04ja7cuq23qf" path="res://assets/art/gizmo_fill_points_hover.png" id="18_lsite"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sim6x"]
 shader = ExtResource("2_y2nqn")
@@ -74,7 +80,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 302.0
-offset_top = 968.0
+offset_top = 960.0
 offset_right = -1119.0
 offset_bottom = 3.0
 grow_horizontal = 2
@@ -85,9 +91,9 @@ script = ExtResource("9_5jfgm")
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/BottomBar"]
 layout_mode = 0
 offset_left = -18.0
-offset_top = 1.0
+offset_top = 8.0
 offset_right = 522.0
-offset_bottom = 115.0
+offset_bottom = 122.0
 theme_override_constants/separation = 70
 alignment = 1
 metadata/_edit_group_ = true
@@ -95,14 +101,20 @@ metadata/_edit_group_ = true
 [node name="ResetTransformButton" type="TextureButton" parent="CanvasLayer/BottomBar/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("9_4jf2w")
+texture_pressed = ExtResource("11_x1ot1")
+texture_hover = ExtResource("12_wfgwy")
 
 [node name="ClearPointsButton" type="TextureButton" parent="CanvasLayer/BottomBar/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("10_hqd2n")
+texture_pressed = ExtResource("14_tjydh")
+texture_hover = ExtResource("15_37jha")
 
 [node name="FillPointsButton" type="TextureButton" parent="CanvasLayer/BottomBar/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("11_qavym")
+texture_pressed = ExtResource("17_yai8j")
+texture_hover = ExtResource("18_lsite")
 
 [node name="TopBar" type="ColorRect" parent="CanvasLayer" node_paths=PackedStringArray("rotation_label", "skew_x_label", "skew_y_label")]
 anchors_preset = 15
