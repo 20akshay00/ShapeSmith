@@ -10,8 +10,12 @@ func enter() -> void:
 	grid._show_focus = false
 
 func exit() -> void:
-	pass
-	
+	if _skew_dir > 0:
+		grid._top_ui.set_skew_x_label(skew_factor.x)
+	else:
+		grid._top_ui.set_skew_y_label(skew_factor.y)
+	_skew_dir = 0
+
 func on_draw() -> void:
 	pass
 
@@ -32,7 +36,6 @@ func on_input(event: InputEvent) -> void:
 			skew_factor.y = skew_factor_new
 
 	elif event.is_action_released("skew"):
-		_skew_dir = 0
 		transition_requested.emit(self, State.BASE)
 		
 func _skew_x(vec: Vector2, factor: float) -> Vector2:

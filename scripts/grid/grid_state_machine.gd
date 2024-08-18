@@ -16,6 +16,10 @@ func init() -> void:
 		initial_state.enter()
 		current_state = initial_state
 
+func process(delta: float) -> void:
+	if current_state:
+		current_state.process(delta)
+
 func on_draw() -> void:
 	if current_state:
 		current_state.on_draw()

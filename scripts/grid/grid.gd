@@ -21,6 +21,8 @@ extends Node2D
 @export var GRID_LINE_COLOR: Color = Color(49, 122, 139, 0.2)
 
 @onready var _state_machine: GridStateMachine = $StateMachine
+@export var _top_ui: ColorRect
+
 var _points_default: Array[Vector2]
 var _points: Array[Vector2]
 var _show_focus: bool = true
@@ -68,6 +70,7 @@ func _draw() -> void:
 
 func _process(delta: float) -> void:
 	queue_redraw()
+	_state_machine.process(delta)
 
 func _input(event: InputEvent) -> void:
 	_state_machine.on_input(event)

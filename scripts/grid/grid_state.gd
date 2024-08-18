@@ -11,7 +11,10 @@ func enter() -> void:
 
 func exit() -> void:
 	pass
-	
+
+func process(delta: float) -> void:
+	pass
+
 func on_input(_event: InputEvent) -> void:
 	pass
 

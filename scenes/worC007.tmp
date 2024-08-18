@@ -128,7 +128,6 @@ theme_override_constants/separation = 50
 alignment = 1
 
 [node name="RotationUI" type="HBoxContainer" parent="CanvasLayer/TopBar/HBoxContainer"]
-custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -139,10 +138,9 @@ texture = ExtResource("9_63hv2")
 [node name="Label" type="Label" parent="CanvasLayer/TopBar/HBoxContainer/RotationUI"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "0°"
+text = "90°"
 
 [node name="SkewXUI" type="HBoxContainer" parent="CanvasLayer/TopBar/HBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -153,10 +151,9 @@ texture = ExtResource("10_8l75a")
 [node name="Label" type="Label" parent="CanvasLayer/TopBar/HBoxContainer/SkewXUI"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "0.00"
+text = "0.5253"
 
 [node name="SkewYUI" type="HBoxContainer" parent="CanvasLayer/TopBar/HBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -167,7 +164,7 @@ texture = ExtResource("11_e1diq")
 [node name="Label" type="Label" parent="CanvasLayer/TopBar/HBoxContainer/SkewYUI"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "0.00"
+text = "0.2746"
 
 [node name="ShapeSpawner" type="Node2D" parent="."]
 script = ExtResource("9_mpfct")
