@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://scripts/shape.gd" id="1_3kebh"]
 
-[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_tds8v"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vaypk"]
 
 [node name="Shape" type="Area2D"]
 script = ExtResource("1_3kebh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("ConcavePolygonShape2D_tds8v")
+shape = SubResource("RectangleShape2D_vaypk")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 modulate = Color(1, 1, 1, 0)

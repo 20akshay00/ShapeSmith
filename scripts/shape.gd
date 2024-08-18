@@ -10,21 +10,25 @@ func _process(delta: float) -> void:
 		global_position = get_global_mouse_position() - drag_point
 
 func _input(event):
-	if event is InputEventMouseButton and can_drag and _mouse_inside:
-		if event.is_action_pressed("draw"):
+	
+	if event is InputEventMouseButton:
+		if event.is_action_pressed("draw") and can_drag and _mouse_inside:
 			is_dragging = true
 			drag_point = get_local_mouse_position()
 			$CollisionShape2D.set_deferred("disabled", true)
 			get_viewport().set_input_as_handled()
-		elif event.is_action_released("draw"):
+		if event.is_action_released("draw"):
 			is_dragging = false
 			$CollisionShape2D.set_deferred("disabled", false)
 
 func _set_collision_polygon():
-	var collision_points: Array[Vector2] = [$Polygon2D.polygon[0]]
-	for point in $Polygon2D.polygon.slice(1, -1): collision_points.append_array([point, point])
-	collision_points.push_back($Polygon2D.polygon[-1])
-	$CollisionShape2D.shape.segments = PackedVector2Array(collision_points)
+	var points: Array = $Polygon2D.polygon
+	var xmin: float = points.reduce(func(res, point): return min(point.x, res), 100000)
+	var xmax: float = points.reduce(func(res, point): return max(point.x, res), -100000)
+	var ymin: float = points.reduce(func(res, point): return min(point.y, res), 100000)
+	var ymax: float = points.reduce(func(res, point): return max(point.y, res), -100000)
+	
+	$CollisionShape2D.shape.size = Vector2(xmax - xmin, ymax - ymin)
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property($Polygon2D, "modulate:a", 1., 1)
@@ -32,7 +36,6 @@ func _set_collision_polygon():
 
 
 func _on_mouse_entered() -> void:
-	print("hi")
 	_mouse_inside = true
 
 func _on_mouse_exited() -> void:
