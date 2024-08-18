@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bb82g0nfa5wkf"]
+[gd_scene load_steps=29 format=3 uid="uid://bb82g0nfa5wkf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kdrbg"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_y2nqn"]
@@ -24,6 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://dscwtjo21vvgj" path="res://assets/art/gizmo_fill_points_clicked.png" id="17_yai8j"]
 [ext_resource type="Texture2D" uid="uid://c04ja7cuq23qf" path="res://assets/art/gizmo_fill_points_hover.png" id="18_lsite"]
 [ext_resource type="PackedScene" uid="uid://b5s4pccawtaql" path="res://scenes/shape_creature.tscn" id="24_3k1kv"]
+[ext_resource type="Texture2D" uid="uid://b4dw4gs4k4l1u" path="res://assets/art/TrashArea.png" id="25_0kt6u"]
+[ext_resource type="Script" path="res://scripts/trash.gd" id="25_k74m5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sim6x"]
 shader = ExtResource("2_y2nqn")
@@ -36,6 +38,9 @@ shader_parameter/skew_x_factor = 0.0
 shader_parameter/skew_y_factor = 0.0
 shader_parameter/thickness = 0.2
 shader_parameter/brightness = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irgfp"]
+size = Vector2(419, 220)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_kdrbg")
@@ -188,6 +193,21 @@ script = ExtResource("9_mpfct")
 [node name="ShapeCreature" parent="." instance=ExtResource("24_3k1kv")]
 position = Vector2(1553, 449)
 
+[node name="Trash" type="Area2D" parent="."]
+position = Vector2(1717, 976)
+script = ExtResource("25_k74m5")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trash"]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_irgfp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Trash"]
+texture = ExtResource("25_0kt6u")
+
 [connection signal="pressed" from="CanvasLayer/BottomBar/HBoxContainer/ResetTransformButton" to="CanvasLayer/BottomBar" method="_on_reset_transform_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/BottomBar/HBoxContainer/ClearPointsButton" to="CanvasLayer/BottomBar" method="_on_clear_points_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/BottomBar/HBoxContainer/FillPointsButton" to="CanvasLayer/BottomBar" method="_on_fill_points_button_pressed"]
+[connection signal="area_entered" from="Trash" to="Trash" method="_on_area_entered"]
+[connection signal="mouse_entered" from="Trash" to="Trash" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Trash" to="Trash" method="_on_mouse_exited"]

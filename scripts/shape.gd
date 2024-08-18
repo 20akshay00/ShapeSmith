@@ -33,6 +33,8 @@ func _set_collision_polygon():
 	var tween = get_tree().create_tween()
 	tween.tween_property($Polygon2D, "modulate:a", 1., 1)
 	tween.tween_callback(func(): EventManager.shape_created.emit())
+	tween.tween_property(self, "scale", Vector2(1.15, 1.15), 0.2)
+	tween.tween_property(self, "scale", Vector2(1., 1.), 0.2)
 
 
 func _on_mouse_entered() -> void:
