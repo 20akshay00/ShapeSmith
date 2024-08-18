@@ -22,6 +22,7 @@ extends Node2D
 
 @onready var _state_machine: GridStateMachine = $StateMachine
 @export var _top_ui: ColorRect
+@onready var shape_scene: PackedScene = preload("res://scenes/shape.tscn")
 
 var _points_default: Array[Vector2]
 var _points: Array[Vector2]
@@ -102,4 +103,14 @@ func _on_clear_points() -> void:
 	_shape_complete = false
 	
 func _on_fill_points() -> void:
-	pass
+	if _shape_complete:
+		var shape = shape_scene.instantiate()
+		var centre_of_mass: Vector2 = _shape_idx.reduce(func(res, idx): return res + _points[idx], Vector2(0, 0)) / len(_shape_idx)
+		
+		shape.get_node("Polygon2D").polygon = PackedVector2Array(_shape_idx.map(func(idx): return _points[idx] - centre_of_mass))
+		shape.call_deferred("_set_collision_polygon")
+		get_parent().add_child(shape)
+		shape.position = global_position + centre_of_mass
+		
+		_shape_idx = []
+		_shape_complete = false

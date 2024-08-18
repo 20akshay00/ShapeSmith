@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bb82g0nfa5wkf"]
+[gd_scene load_steps=26 format=3 uid="uid://bb82g0nfa5wkf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kdrbg"]
 [ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_y2nqn"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dey0ey7l03ub1" path="res://assets/art/gizmo_remove_points_hover.png" id="15_37jha"]
 [ext_resource type="Texture2D" uid="uid://dscwtjo21vvgj" path="res://assets/art/gizmo_fill_points_clicked.png" id="17_yai8j"]
 [ext_resource type="Texture2D" uid="uid://c04ja7cuq23qf" path="res://assets/art/gizmo_fill_points_hover.png" id="18_lsite"]
+[ext_resource type="PackedScene" uid="uid://b5s4pccawtaql" path="res://scenes/shape_creature.tscn" id="24_3k1kv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sim6x"]
 shader = ExtResource("2_y2nqn")
@@ -183,6 +184,9 @@ text = "0.00"
 
 [node name="ShapeSpawner" type="Node2D" parent="."]
 script = ExtResource("9_mpfct")
+
+[node name="ShapeCreature" parent="." instance=ExtResource("24_3k1kv")]
+position = Vector2(1589, 463)
 
 [connection signal="pressed" from="CanvasLayer/BottomBar/HBoxContainer/ResetTransformButton" to="CanvasLayer/BottomBar" method="_on_reset_transform_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/BottomBar/HBoxContainer/ClearPointsButton" to="CanvasLayer/BottomBar" method="_on_clear_points_button_pressed"]

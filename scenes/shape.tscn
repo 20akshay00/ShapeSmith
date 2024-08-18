@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqpp3nigdf8ya"]
+
+[ext_resource type="Script" path="res://scripts/shape.gd" id="1_3kebh"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_tds8v"]
+
+[node name="Shape" type="Area2D"]
+script = ExtResource("1_3kebh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("ConcavePolygonShape2D_tds8v")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.960784, 0.960784, 0.960784, 1)

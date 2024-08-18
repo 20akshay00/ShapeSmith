@@ -22,7 +22,7 @@ func on_input(event: InputEvent) -> void:
 		if _start_point_idx != _next_point_idx:
 			if len(grid._shape_idx) == 0: grid._shape_idx.push_back(_start_point_idx)
 			
-			if _next_point_idx == grid._shape_idx[0]:
+			if _next_point_idx == grid._shape_idx[0] and len(grid._shape_idx) > 2:
 				#if _is_self_intersecting(grid._shape_idx.map(func(idx): return grid._points[idx])):
 					#grid._shape_idx = []
 					#transition_requested.emit(self, State.BASE)
