@@ -8,6 +8,7 @@
 size = Vector2(533, 525)
 
 [node name="ShapeCreature" type="Area2D"]
+modulate = Color(0.683077, 0.683077, 0.683077, 1)
 position = Vector2(71, 87)
 script = ExtResource("1_1iykf")
 

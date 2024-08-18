@@ -3,6 +3,9 @@ extends GridState
 @export var grid: Grid
 
 var _start_point_idx: int 
+var is_valid_placement: bool = true
+
+var LINE_COLOR_INVALID: Color = Color.RED
 
 func enter() -> void:
 	_start_point_idx = grid._focus_idx
@@ -12,9 +15,14 @@ func exit() -> void:
 	pass
 
 func on_draw() -> void:
+	is_valid_placement = not _is_self_intersecting()
 	grid.draw_circle(grid._points[_start_point_idx], grid.POINT_SELECTED_SIZE, grid.POINT_SELECTED_COLOR)
-	grid.draw_line(grid._points[_start_point_idx], grid.get_local_mouse_position(), grid.LINE_COLOR, grid.LINE_THICKNESS)
-
+	
+	if is_valid_placement:
+		grid.draw_line(grid._points[_start_point_idx], grid.get_local_mouse_position(), grid.LINE_COLOR, grid.LINE_THICKNESS)
+	else:
+		grid.draw_line(grid._points[_start_point_idx], grid.get_local_mouse_position(), LINE_COLOR_INVALID, grid.LINE_THICKNESS)
+			
 func on_input(event: InputEvent) -> void:
 	if event.is_action_pressed("draw") and grid._focus_idx > 0:
 		var _next_point_idx = grid._focus_idx
@@ -23,28 +31,20 @@ func on_input(event: InputEvent) -> void:
 			if len(grid._shape_idx) == 0: grid._shape_idx.push_back(_start_point_idx)
 			
 			if _next_point_idx == grid._shape_idx[0] and len(grid._shape_idx) > 2:
-				#if _is_self_intersecting(grid._shape_idx.map(func(idx): return grid._points[idx])):
-					#grid._shape_idx = []
-					#transition_requested.emit(self, State.BASE)
-				#else:
 				grid._shape_complete = true
 				transition_requested.emit(self, State.BASE)
 					
-			elif _next_point_idx not in grid._shape_idx:
+			elif _next_point_idx not in grid._shape_idx and is_valid_placement:
 				grid._shape_idx.push_back(_next_point_idx)
 				_start_point_idx = _next_point_idx
 
 	if event.is_action_pressed("cancel"):
 		transition_requested.emit(self, State.BASE)
 
-func _is_self_intersecting(polygon: Array) -> bool:
-	var s = polygon.size() - 1
-	for i in range(0, s):
-		var p1: Vector2 = polygon[i]
-		var p2: Vector2 = polygon[(i+1) % s]
-		for j in range(0, s):
-			var p1a: Vector2 = polygon[j]
-			var p2a: Vector2 = polygon[(j+1) % s]
-			var intersect = Geometry2D.segment_intersects_segment(p1, p2, p1a, p2a)
-			if intersect != null: return true
+func _is_self_intersecting() -> bool:
+	var mouse_pos: Vector2 =  grid.get_local_mouse_position()
+	for i in len(grid._shape_idx) - 2:
+		var res = Geometry2D.segment_intersects_segment(grid._points[grid._shape_idx[i]], grid._points[grid._shape_idx[i + 1]], grid._points[_start_point_idx], mouse_pos)
+		if res != null: return true
+				
 	return false
