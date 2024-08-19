@@ -15,7 +15,7 @@ func _spawn_creature(hole: Array) -> void:
 	creature = creature_scene.instantiate()
 	creature.global_position = Vector2(2320, 550)
 	creature.hole_vertices = hole
-	call_deferred("add_sibling", creature)
+	add_child(creature)
 
 func _play_scene():
 	var tween = self.create_tween()
