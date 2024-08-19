@@ -1,7 +1,6 @@
-[gd_scene load_steps=32 format=3 uid="uid://bb82g0nfa5wkf"]
+[gd_scene load_steps=30 format=3 uid="uid://bb82g0nfa5wkf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kdrbg"]
-[ext_resource type="Shader" path="res://shaders/grid.gdshader" id="2_y2nqn"]
 [ext_resource type="Script" path="res://scripts/grid/grid.gd" id="3_23af6"]
 [ext_resource type="Script" path="res://scripts/grid/grid_state_machine.gd" id="4_x8n5n"]
 [ext_resource type="Script" path="res://scripts/grid/grid_base_state.gd" id="5_cymmi"]
@@ -30,18 +29,6 @@
 [ext_resource type="Script" path="res://scripts/trash.gd" id="25_k74m5"]
 [ext_resource type="Texture2D" uid="uid://djmlo2v5xhc78" path="res://assets/art/instructions.png" id="26_6i4kw"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sim6x"]
-shader = ExtResource("2_y2nqn")
-shader_parameter/resolution = Vector2(1920, 1080)
-shader_parameter/line_color = Color(0.0862745, 0.988235, 0.988235, 1)
-shader_parameter/zoom = 19.4
-shader_parameter/rotation = 0.35
-shader_parameter/translation = Vector2(0, 0)
-shader_parameter/skew_x_factor = 0.01
-shader_parameter/skew_y_factor = 0.0
-shader_parameter/thickness = 1.7
-shader_parameter/brightness = 0.15
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_irgfp"]
 size = Vector2(419, 220)
 
@@ -50,12 +37,6 @@ script = ExtResource("1_kdrbg")
 help_screen = NodePath("HelpScreen")
 UI = NodePath("CanvasLayer")
 trash = NodePath("Trash")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_sim6x")
-offset_right = 1920.0
-offset_bottom = 1080.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

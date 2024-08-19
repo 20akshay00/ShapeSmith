@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Sketchometry"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://assets/art/thumbnail.png"
 
@@ -19,6 +19,7 @@ config/icon="res://assets/art/thumbnail.png"
 
 EventManager="*res://globals/EventManager.gd"
 AudioManager="*res://globals/AudioManager.tscn"
+TransitionManager="*res://globals/transition_manager.tscn"
 
 [display]
 
@@ -55,6 +56,11 @@ rotate={
 help={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":72,"key_label":0,"unicode":104,"location":0,"echo":false,"script":null)
+]
+}
+start={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194309,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 

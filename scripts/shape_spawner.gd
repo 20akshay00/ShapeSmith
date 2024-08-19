@@ -7,9 +7,10 @@ var holes = [
 ]
 
 func _ready() -> void:
-	_spawn_creature(holes[0])
 	EventManager.creature_left.connect(_on_creature_left)
-	#print(generate_polygon(Vector2(0, 0), 50., 0.3, 0.6, 5))
+
+	await get_tree().create_timer(2).timeout
+	_spawn_creature(holes[0])
 
 func _spawn_creature(hole: Array) -> void:
 	var creature := creature_scene.instantiate()
