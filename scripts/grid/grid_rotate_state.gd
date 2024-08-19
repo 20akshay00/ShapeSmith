@@ -33,7 +33,6 @@ func on_input(event: InputEvent) -> void:
 		angle = fmod(angle + event.relative.y/ROTATION_SENSITIVITY, TAU)
 		if angle < 0: angle += TAU
 		
-		print(event.relative.y, " ", event.relative.y / ROTATION_SENSITIVITY)
 		if event.relative.y == 0: 
 			rotate_sfx_player.stop()
 		elif not rotate_sfx_player.playing:
