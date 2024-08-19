@@ -71,7 +71,7 @@ func _display_result(res: float) -> void:
 	opacity_tween.tween_property($SuccessBar/ScoreLabel, "modulate:a", 1, 0.2).set_delay(0.3)
 	opacity_tween.tween_property($SuccessBar, "modulate:a", 0., 0.45).set_delay(1.5)
 	
-	if res > 0.8:
+	if res > 0.85:
 		opacity_tween.tween_callback(func(): $SadFace.hide())
 		opacity_tween.tween_callback(func(): $HappyFace.show())
 		opacity_tween.tween_property($HappyFace, "scale", Vector2(0.6, 0.6), 0.25)
