@@ -8,10 +8,13 @@ var holes = [
 
 func _ready() -> void:
 	_spawn_creature(holes[0])
+	EventManager.creature_left.connect(_on_creature_left)
 
 func _spawn_creature(hole: Array) -> void:
 	var creature := creature_scene.instantiate()
-	creature.global_position = Vector2(2520, 550)
+	creature.global_position = Vector2(2320, 550)
 	creature.hole_vertices = hole.duplicate()
 	call_deferred("add_sibling", creature)
 	
+func _on_creature_left() -> void:
+	_spawn_creature(holes[0])
