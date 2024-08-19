@@ -7,9 +7,12 @@ var is_valid_placement: bool = true
 
 var LINE_COLOR_INVALID: Color = Color.RED
 
+var valid_placement_sfx := preload("res://assets/sfx/Point Place.wav")
+
 func enter() -> void:
 	_start_point_idx = grid._focus_idx
 	grid._show_focus = true
+	AudioManager.play_effect(valid_placement_sfx)
 
 func exit() -> void:
 	pass
@@ -33,10 +36,13 @@ func on_input(event: InputEvent) -> void:
 			if _next_point_idx == grid._shape_idx[0] and len(grid._shape_idx) > 2 and is_valid_placement:
 				grid._shape_complete = true
 				transition_requested.emit(self, State.BASE)
-					
+				AudioManager.play_effect(valid_placement_sfx)
 			elif _next_point_idx not in grid._shape_idx and is_valid_placement:
 				grid._shape_idx.push_back(_next_point_idx)
 				_start_point_idx = _next_point_idx
+				AudioManager.play_effect(valid_placement_sfx)
+			else:
+				AudioManager.play_effect(AudioManager.invalid_placement_sfx)
 
 	if event.is_action_pressed("cancel"):
 		transition_requested.emit(self, State.BASE)

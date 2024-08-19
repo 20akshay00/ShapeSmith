@@ -36,7 +36,8 @@ func set_skew_x_label(val: float) -> void:
 	
 	skewx_tween.tween_property(skew_x_label, "scale", Vector2(1., 1.), 0.15)
 	if is_invalid: skewx_tween.parallel().tween_property(skew_x_label, "modulate", Color.WHITE, 0.15)
-	
+	if is_invalid: 		AudioManager.play_effect(AudioManager.invalid_placement_sfx)
+
 func set_skew_y_label(val: float) -> void:
 	var is_invalid: bool = is_equal_approx(abs(val), 1)
 
@@ -49,6 +50,7 @@ func set_skew_y_label(val: float) -> void:
 
 	skewy_tween.tween_property(skew_y_label, "scale", Vector2(1., 1.), 0.15)
 	if is_invalid: skewy_tween.parallel().tween_property(skew_y_label, "modulate", Color.WHITE, 0.15)
+	if is_invalid: 	AudioManager.play_effect(AudioManager.invalid_placement_sfx)
 
 func _on_rotation_ui_mouse_entered() -> void:
 	if rotation_tooltip_tween: rotation_tooltip_tween.kill()

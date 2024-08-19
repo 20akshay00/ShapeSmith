@@ -13,11 +13,12 @@ config_version=5
 config/name="Sketchometry"
 run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/art/thumbnail.png"
 
 [autoload]
 
 EventManager="*res://globals/EventManager.gd"
+AudioManager="*res://globals/AudioManager.tscn"
 
 [display]
 

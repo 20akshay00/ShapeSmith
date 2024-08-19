@@ -34,6 +34,8 @@ var _shape_complete: bool = false
 var _block_shape_spawn: bool = false # some spagetti to disallow spamming the create shape button between tween duration
 var reset_tween: Tween
 
+var shape_filled_sfx := preload("res://assets/sfx/Shape Forge.wav")
+
 func _ready() -> void:	
 	for i in Vector3(-(grid_size.x - 1)/2, grid_size.x/2, 1):
 		for j in Vector3(-(grid_size.y - 1)/2, grid_size.y/2, 1):
@@ -87,7 +89,7 @@ func _on_reset_transform() -> void:
 	_state_machine.get_child(1).skew_factor = Vector2(0, 0)
 	_state_machine.get_child(1).reset()
 	_state_machine.get_child(3).angle = 0.
-	_state_machine.get_child(3).exit()
+	_state_machine.get_child(3).reset()
 	
 	if reset_tween: reset_tween.kill()
 	reset_tween = get_tree().create_tween()
@@ -114,6 +116,10 @@ func _on_fill_points() -> void:
 		shape.call_deferred("_set_collision_polygon")
 		get_parent().add_child(shape)
 		shape.position = global_position + centre_of_mass
+		AudioManager.play_effect(shape_filled_sfx)
+	else:
+		AudioManager.play_effect(AudioManager.invalid_placement_sfx)
+		
 
 func _on_shape_created() -> void:
 	_shape_idx = []
