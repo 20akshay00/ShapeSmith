@@ -14,12 +14,13 @@ func _ready() -> void:
 func _spawn_creature(hole: Array) -> void:
 	var creature := creature_scene.instantiate()
 	creature.global_position = Vector2(2320, 550)
-	creature.hole_vertices = generate_polygon(Vector2(0, -50), 150., 0.8, 0.6, 5)
+	creature.hole_vertices = generate_polygon(Vector2(-20, 0), 125., 0.5, 0.5, 7)
 	call_deferred("add_sibling", creature)
 	
 func _on_creature_left() -> void:
 	_spawn_creature(holes[0])
 
+# https://stackoverflow.com/questions/8997099/algorithm-to-generate-random-2d-polygon
 func generate_polygon(center: Vector2, avg_radius: float, irregularity: float, spikiness: float, num_vertices: int) -> Array:
 	# Parameter check
 	irregularity = clamp(irregularity, 0., 1.)
@@ -38,7 +39,9 @@ func generate_polygon(center: Vector2, avg_radius: float, irregularity: float, s
 		var point := Vector2(center.x + radius * cos(angle), center.y + radius * sin(angle))
 		points.push_back(point)
 		angle += angle_steps[i]
-
+	
+	print(points)
+	
 	return points
 	
 func random_angle_steps(steps: int, irregularity: float) -> Array:
