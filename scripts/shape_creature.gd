@@ -33,7 +33,7 @@ func _on_area_entered(area: Area2D) -> void:
 		area.get_node("CollisionShape2D").set_deferred("disabled", true)
 		$CollisionShape2D.set_deferred("disabled", true)
 		area.can_drag = false
-		
+		area.get_node("Polygon2D").modulate = Color.WHITE
 		area.global_position =  global_position + hole_vertices.reduce(func(res, point): return res + point, Vector2(0, 0)) / len(hole_vertices)
 		
 		var shape_centre_of_mass: Vector2 = area.points.reduce(func(res, point): return res + point, Vector2(0, 0)) / len(area.points)
@@ -61,14 +61,16 @@ func calculate_area(mesh_vertices: Array) -> float:
 	return abs(result) * 0.5
 
 func _display_result(res: float) -> void:
+	$SuccessBar/ScoreLabel.text = "%2.0f" % (res * 100) + "%"
 	if opacity_tween: opacity_tween.kill()
 	opacity_tween = get_tree().create_tween()
 	opacity_tween.tween_property($SuccessBar, "modulate:a", 1., 1.0)
 	opacity_tween.tween_property($SuccessBar/Foreground, "material:shader_parameter/percent", res, 1.5)
 	opacity_tween.tween_property($SuccessBar, "scale", Vector2(1.025, 1.025), 0.25)
 	opacity_tween.tween_property($SuccessBar, "scale", Vector2(1., 1.), 0.25)
-	opacity_tween.tween_property($SuccessBar, "modulate:a", 0., 0.35).set_delay(0.75)
-
+	opacity_tween.tween_property($SuccessBar/ScoreLabel, "modulate:a", 1, 0.2).set_delay(0.3)
+	opacity_tween.tween_property($SuccessBar, "modulate:a", 0., 0.45).set_delay(1.5)
+	
 	if res > 0.8:
 		opacity_tween.tween_callback(func(): $SadFace.hide())
 		opacity_tween.tween_callback(func(): $HappyFace.show())

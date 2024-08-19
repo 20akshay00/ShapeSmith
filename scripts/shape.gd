@@ -7,12 +7,17 @@ var can_drag: bool = true
 var _mouse_inside: bool = false
 var points: Array
 
+var draw_points: PackedVector2Array
+
 func _process(delta: float) -> void:
+	queue_redraw()
 	if is_dragging:
 		global_position = get_global_mouse_position() - drag_point
 
-func _input(event):
-	
+func _draw() -> void:
+	if is_dragging: draw_polyline(draw_points, Color.WHITE, 3)
+
+func _input(event):	
 	if event is InputEventMouseButton:
 		if event.is_action_pressed("draw") and can_drag and _mouse_inside:
 			is_dragging = true
@@ -38,6 +43,13 @@ func _set_collision_polygon():
 	tween.tween_property(self, "scale", Vector2(1.15, 1.15), 0.2)
 	tween.tween_property(self, "scale", Vector2(1., 1.), 0.2)
 	tween.tween_callback(func(): $CollisionShape2D.set_deferred("disabled", false))
+
+	draw_points = _generate_outline_points()
+
+func _generate_outline_points():
+	var new_points := points.duplicate()
+	new_points.append_array([points[-1], points[0]])
+	return PackedVector2Array(new_points)
 
 func _on_mouse_entered() -> void:
 	_mouse_inside = true
