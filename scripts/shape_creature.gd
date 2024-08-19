@@ -67,7 +67,7 @@ func _display_result(res: float) -> void:
 	opacity_tween.tween_property($SuccessBar/Foreground, "material:shader_parameter/percent", res, 1.5)
 	opacity_tween.tween_property($SuccessBar, "scale", Vector2(1.025, 1.025), 0.25)
 	opacity_tween.tween_property($SuccessBar, "scale", Vector2(1., 1.), 0.25)
-	opacity_tween.tween_property($SuccessBar, "modulate:a", 0., 0.75).set_delay(0.5)
+	opacity_tween.tween_property($SuccessBar, "modulate:a", 0., 0.35).set_delay(0.75)
 
 	if res > 0.8:
 		opacity_tween.tween_callback(func(): $SadFace.hide())

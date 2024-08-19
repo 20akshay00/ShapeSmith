@@ -8,6 +8,14 @@ var rotation_tween: Tween
 var skewx_tween: Tween 
 var skewy_tween: Tween
 
+var rotation_tooltip_tween: Tween
+var skewx_tooltip_tween: Tween
+var skewy_tooltip_tween: Tween
+
+@onready var rotation_tooltip := $Tooltips/RotationUI/TextureRect
+@onready var skewx_tooltip := $Tooltips/SkewXUI/TextureRect
+@onready var skewy_tooltip := $Tooltips/SkewYUI/TextureRect
+
 func set_rotation_label(angle: float) -> void:
 	if rotation_tween: rotation_tween.kill()
 	rotation_tween = get_tree().create_tween()
@@ -41,3 +49,33 @@ func set_skew_y_label(val: float) -> void:
 
 	skewy_tween.tween_property(skew_y_label, "scale", Vector2(1., 1.), 0.15)
 	if is_invalid: skewy_tween.parallel().tween_property(skew_y_label, "modulate", Color.WHITE, 0.15)
+
+func _on_rotation_ui_mouse_entered() -> void:
+	if rotation_tooltip_tween: rotation_tooltip_tween.kill()
+	rotation_tooltip_tween = get_tree().create_tween()
+	rotation_tooltip_tween.tween_property(rotation_tooltip, "modulate:a", 1., 0.2)
+
+func _on_rotation_ui_mouse_exited() -> void:
+	if rotation_tooltip_tween: rotation_tooltip_tween.kill()
+	rotation_tooltip_tween = get_tree().create_tween()
+	rotation_tooltip_tween.tween_property(rotation_tooltip, "modulate:a", 0., 0.2)
+
+func _on_skew_xui_mouse_entered() -> void:
+	if skewx_tooltip_tween: skewx_tooltip_tween.kill()
+	skewx_tooltip_tween = get_tree().create_tween()
+	skewx_tooltip_tween.tween_property(skewx_tooltip, "modulate:a", 1., 0.2)
+
+func _on_skew_xui_mouse_exited() -> void:
+	if skewx_tooltip_tween: skewx_tooltip_tween.kill()
+	skewx_tooltip_tween = get_tree().create_tween()
+	skewx_tooltip_tween.tween_property(skewx_tooltip, "modulate:a", 0., 0.2)
+
+func _on_skew_yui_mouse_entered() -> void:
+	if skewy_tooltip_tween: skewy_tooltip_tween.kill()
+	skewy_tooltip_tween = get_tree().create_tween()
+	skewy_tooltip_tween.tween_property(skewy_tooltip, "modulate:a", 1., 0.2)
+
+func _on_skew_yui_mouse_exited() -> void:
+	if skewy_tooltip_tween: skewy_tooltip_tween.kill()
+	skewy_tooltip_tween = get_tree().create_tween()
+	skewy_tooltip_tween.tween_property(skewy_tooltip, "modulate:a", 0., 0.2)
