@@ -15,7 +15,7 @@ func _ready() -> void:
 func _spawn_creature(hole: Array) -> void:
 	var creature := creature_scene.instantiate()
 	creature.global_position = Vector2(2320, 550)
-	creature.hole_vertices = generate_polygon(Vector2(-20, 0), 125., 0.5, 0.5, 7)
+	creature.hole_vertices = generate_polygon(Vector2(-20, -30), 125., 0.5, 0.5, 7)
 	call_deferred("add_sibling", creature)
 	
 func _on_creature_left() -> void:
@@ -58,7 +58,6 @@ func random_angle_steps(steps: int, irregularity: float) -> Array:
 		cumsum += angle
 
 	# normalize the steps so that point 0 and point n+1 are the same
-	for i in len(angles):
-		angles[i] * TAU/cumsum
+	for i in len(angles): angles[i] = angles[i] * TAU/cumsum
 	
 	return angles
