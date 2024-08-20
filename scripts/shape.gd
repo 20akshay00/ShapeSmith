@@ -9,6 +9,8 @@ var points: Array
 
 var draw_points: PackedVector2Array
 
+var shape_pickup_sfx := preload("res://assets/sfx/Point Place 2.wav")
+
 func _process(delta: float) -> void:
 	queue_redraw()
 	if is_dragging:
@@ -20,6 +22,7 @@ func _draw() -> void:
 func _input(event):	
 	if event is InputEventMouseButton:
 		if event.is_action_pressed("draw") and can_drag and _mouse_inside:
+			AudioManager.play_effect(shape_pickup_sfx)
 			is_dragging = true
 			drag_point = get_local_mouse_position()
 			$CollisionShape2D.set_deferred("disabled", true)

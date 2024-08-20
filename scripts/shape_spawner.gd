@@ -10,16 +10,17 @@ func _ready() -> void:
 	EventManager.creature_left.connect(_on_creature_left)
 
 	await get_tree().create_timer(2).timeout
-	_spawn_creature(holes[0])
+	_spawn_creature()
 
-func _spawn_creature(hole: Array) -> void:
+func _spawn_creature() -> void:
 	var creature := creature_scene.instantiate()
 	creature.global_position = Vector2(2320, 550)
-	creature.hole_vertices = generate_polygon(Vector2(-20, -30), 125., 0.5, 0.5, 7)
+	creature.hole_vertices = generate_polygon(Vector2(-20, -40), 125., randf_range(0.4, 0.6), randf_range(0.4, 0.6), randi_range(4, 8))
 	call_deferred("add_sibling", creature)
 	
 func _on_creature_left() -> void:
-	_spawn_creature(holes[0])
+	await get_tree().create_timer(2).timeout
+	_spawn_creature()
 
 # https://stackoverflow.com/questions/8997099/algorithm-to-generate-random-2d-polygon
 func generate_polygon(center: Vector2, avg_radius: float, irregularity: float, spikiness: float, num_vertices: int) -> Array:

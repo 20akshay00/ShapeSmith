@@ -63,6 +63,7 @@ offset_bottom = 40.0
 
 [node name="Label1" type="Label" parent="Dialogues"]
 modulate = Color(1, 1, 1, 0)
+layout_mode = 0
 offset_left = 58.0
 offset_top = 151.0
 offset_right = 1195.0
@@ -75,6 +76,7 @@ text = "Uh-oh, it looks like geometry
 
 [node name="Label2" type="Label" parent="Dialogues"]
 modulate = Color(1, 1, 1, 0)
+layout_mode = 0
 offset_left = 60.0
 offset_top = 491.0
 offset_right = 1550.0
@@ -86,6 +88,7 @@ text = "The shapes are shattered, angles askew,
 
 [node name="Label3" type="Label" parent="Dialogues"]
 modulate = Color(1, 1, 1, 0)
+layout_mode = 0
 offset_left = 112.0
 offset_top = 790.0
 offset_right = 1842.0

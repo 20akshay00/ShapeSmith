@@ -1,6 +1,7 @@
 extends AudioStreamPlayer2D
 
-var invalid_placement_sfx := preload("res://assets/sfx/Point Invalid.wav")
+var invalid_placement_sfx := preload("res://assets/sfx/Point Invalid 2.wav")
+var invalid_placement_sfx_1 := preload("res://assets/sfx/Point Invalid.wav")
 
 func _play_music(music: AudioStream, volume = -7):
 	if stream == music:

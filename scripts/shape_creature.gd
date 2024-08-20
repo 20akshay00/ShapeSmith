@@ -14,10 +14,19 @@ var opacity_tween: Tween
 @export var MAX_HOP_DELAY := 20.
 @export var MIN_HOP_DELAY := 15.
 
+var creature_entry_sfx := preload("res://assets/sfx/Creature Entry.wav")
+var creature_exit_sfx := preload("res://assets/sfx/Creature Exit.wav")
+var good_shape_sfx := preload("res://assets/sfx/Good Shape Long.wav")
+var shape_attach_sfx := preload("res://assets/sfx/Point Place 2.wav")
+var score_bar_rising_sfx := preload("res://assets/sfx/Meter Click.wav")
+
+var score_bar_player: AudioStreamPlayer2D
+
 func _ready() -> void:
 	$Polygon2D.polygon = PackedVector2Array(hole_vertices)
 	
 	$AnimationPlayer.play("wobble")
+	AudioManager.play_effect(creature_entry_sfx)
 	var tween := get_tree().create_tween()
 	tween.tween_property(self, "global_position:x", 1480, 3.)
 	tween.tween_callback(func(): $AnimationPlayer.stop())
@@ -26,9 +35,9 @@ func _ready() -> void:
 	tween.tween_callback(func(): $CollisionShape2D.set_deferred("disabled", false))
 	#tween.tween_callback(func(): hop_timer.start(randf_range(MIN_HOP_DELAY, MAX_HOP_DELAY)))
 	$SuccessBar/Foreground.material.set("shader_parameter/percent", 0.)
-
 func _on_area_entered(area: Area2D) -> void:
 	if area is CustomShape:
+		AudioManager.play_effect(shape_attach_sfx)
 		area.call_deferred("attach", self)
 		area.get_node("CollisionShape2D").set_deferred("disabled", true)
 		$CollisionShape2D.set_deferred("disabled", true)
@@ -65,7 +74,9 @@ func _display_result(res: float) -> void:
 	if opacity_tween: opacity_tween.kill()
 	opacity_tween = get_tree().create_tween()
 	opacity_tween.tween_property($SuccessBar, "modulate:a", 1., 1.0)
+	opacity_tween.tween_callback(func(): score_bar_player = AudioManager.play_effect(score_bar_rising_sfx, 0, true))
 	opacity_tween.tween_property($SuccessBar/Foreground, "material:shader_parameter/percent", res, 1.5)
+	opacity_tween.tween_callback(func(): score_bar_player.queue_free())
 	opacity_tween.tween_property($SuccessBar, "scale", Vector2(1.025, 1.025), 0.25)
 	opacity_tween.tween_property($SuccessBar, "scale", Vector2(1., 1.), 0.25)
 	opacity_tween.tween_property($SuccessBar/ScoreLabel, "modulate:a", 1, 0.2).set_delay(0.3)
@@ -74,6 +85,7 @@ func _display_result(res: float) -> void:
 	if res > 0.85:
 		opacity_tween.tween_callback(func(): $SadFace.hide())
 		opacity_tween.tween_callback(func(): $HappyFace.show())
+		opacity_tween.tween_callback(func(): AudioManager.play_effect(good_shape_sfx))
 		opacity_tween.tween_property($HappyFace, "scale", Vector2(0.6, 0.6), 0.25)
 		opacity_tween.tween_property($HappyFace, "scale", Vector2(0.5, 0.5), 0.25)
 	
@@ -84,6 +96,7 @@ func _exit_scene() -> void:
 	var tween := get_tree().create_tween()
 	tween.tween_property(self, "scale:x", -1, 0.5)
 	$AnimationPlayer.play("wobble")
+	tween.tween_callback(func(): AudioManager.play_effect(creature_exit_sfx))
 	tween.tween_property(self, "global_position:x", 2320, 3.)
 	tween.tween_callback(func(): EventManager.creature_left.emit())
 	tween.tween_callback(func(): $AnimationPlayer.stop())

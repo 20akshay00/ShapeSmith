@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dhgh05h0reo7t"
+path="res://.godot/imported/Reset Grid.wav-bddc891a5417cee2f8b2cbc09875b945.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Reset Grid.wav"
+dest_files=["res://.godot/imported/Reset Grid.wav-bddc891a5417cee2f8b2cbc09875b945.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

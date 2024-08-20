@@ -38,6 +38,9 @@ func _main_screen():
 func _input(event: InputEvent) -> void:
 	if can_start and event.is_action_pressed("start"):
 		TransitionManager._change_scene("res://scenes/world.tscn")
+	if event.is_action_pressed("skip"):
+		TransitionManager._change_scene("res://scenes/world.tscn")
+		
 
 func _start_blinking() -> void:
 	var tween = self.create_tween()

@@ -5,7 +5,7 @@ extends GridState
 @export var angle: float = 0.
 @export var ROTATION_SENSITIVITY: int = 700
 
-var rotate_sfx := preload("res://assets/sfx/Rotation_Click.wav")
+var rotate_sfx := preload("res://assets/sfx/Rotation Click Soft.wav")
 var rotate_sfx_player: AudioStreamPlayer2D
 
 func enter() -> void:

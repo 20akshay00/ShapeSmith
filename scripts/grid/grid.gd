@@ -35,6 +35,7 @@ var _block_shape_spawn: bool = false # some spagetti to disallow spamming the cr
 var reset_tween: Tween
 
 var shape_filled_sfx := preload("res://assets/sfx/Shape Forge.wav")
+var reset_transform_sfx := preload("res://assets/sfx/Reset Grid.wav")
 
 func _ready() -> void:	
 	for i in Vector3(-(grid_size.x - 1)/2, grid_size.x/2, 1):
@@ -86,26 +87,34 @@ func _input(event: InputEvent) -> void:
 	_state_machine.on_input(event)
 
 func _on_reset_transform() -> void:
-	_state_machine.get_child(1).skew_factor = Vector2(0, 0)
-	_state_machine.get_child(1).reset()
-	_state_machine.get_child(3).angle = 0.
-	_state_machine.get_child(3).reset()
-	
-	if reset_tween: reset_tween.kill()
-	reset_tween = get_tree().create_tween()
-	reset_tween.set_parallel()
-	for idx in len(_points): 
-		reset_tween.tween_method(
-			func (new_points: Array[Vector2]): _points = new_points.duplicate(),
-			_points,
-			_points_default,
-			1.
-		)
-	
+	if (_state_machine.get_child(1).skew_factor == Vector2.ZERO) and (_state_machine.get_child(3).angle == 0):
+		AudioManager.play_effect(AudioManager.invalid_placement_sfx)
+	else:
+		_state_machine.get_child(1).skew_factor = Vector2(0, 0)
+		_state_machine.get_child(1).reset()
+		_state_machine.get_child(3).angle = 0.
+		_state_machine.get_child(3).reset()
+		
+		if reset_tween and reset_tween.is_running(): 
+			AudioManager.play_effect(AudioManager.invalid_placement_sfx)
+		else:
+			if reset_tween: reset_tween.kill()
+			AudioManager.play_effect(reset_transform_sfx)
+			reset_tween = get_tree().create_tween()
+			reset_tween.set_parallel()
+			for idx in len(_points): 
+				reset_tween.tween_method(
+					func (new_points: Array[Vector2]): _points = new_points.duplicate(),
+					_points,
+					_points_default,
+					1.
+				)
+		
 func _on_clear_points() -> void:
 	_shape_idx = []
 	_shape_complete = false
-	
+	AudioManager.play_effect(AudioManager.invalid_placement_sfx_1)
+
 func _on_fill_points() -> void:
 	if _shape_complete and not _block_shape_spawn:
 		_block_shape_spawn = true

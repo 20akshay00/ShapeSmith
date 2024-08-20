@@ -7,7 +7,7 @@ var is_valid_placement: bool = true
 
 var LINE_COLOR_INVALID: Color = Color.RED
 
-var valid_placement_sfx := preload("res://assets/sfx/Point Place.wav")
+var valid_placement_sfx := preload("res://assets/sfx/Point Place 2.wav")
 
 func enter() -> void:
 	_start_point_idx = grid._focus_idx
