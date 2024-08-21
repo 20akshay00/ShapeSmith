@@ -6,11 +6,11 @@ extends GridState
 @export var ROTATION_SENSITIVITY: int = 700
 
 var rotate_sfx := preload("res://assets/sfx/Rotation Click Soft.wav")
-var rotate_sfx_player: AudioStreamPlayer2D
+var rotate_sfx_player: AudioStreamPlayer
 
 func enter() -> void:
 	grid._show_focus = false
-	rotate_sfx_player = AudioManager.play_effect(rotate_sfx, 8, true)	
+	rotate_sfx_player = AudioManager.play_effect(rotate_sfx, 0, true)	
 
 func exit() -> void:
 	grid._top_ui.set_rotation_label(angle)

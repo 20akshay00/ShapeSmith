@@ -15,7 +15,7 @@ func _ready() -> void:
 func _spawn_creature() -> void:
 	var creature := creature_scene.instantiate()
 	creature.global_position = Vector2(2320, 550)
-	creature.hole_vertices = generate_polygon(Vector2(-20, -40), 125., randf_range(0.4, 0.6), randf_range(0.4, 0.6), randi_range(4, 8))
+	creature.hole_vertices = generate_polygon(Vector2(-20, -40), 125., randf_range(0.4, 0.6), randf_range(0.4, 0.65), randi_range(4, 7))
 	call_deferred("add_sibling", creature)
 	
 func _on_creature_left() -> void:

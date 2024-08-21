@@ -20,7 +20,7 @@ var good_shape_sfx := preload("res://assets/sfx/Good Shape Long.wav")
 var shape_attach_sfx := preload("res://assets/sfx/Point Place 2.wav")
 var score_bar_rising_sfx := preload("res://assets/sfx/Meter Click.wav")
 
-var score_bar_player: AudioStreamPlayer2D
+var score_bar_player: AudioStreamPlayer
 
 func _ready() -> void:
 	$Polygon2D.polygon = PackedVector2Array(hole_vertices)

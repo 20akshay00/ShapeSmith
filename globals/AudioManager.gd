@@ -16,7 +16,7 @@ func play_music_level():
 	#
 
 func play_effect(aud_stream: AudioStream, volume = 0.0, loops = false):
-	var fx_player = AudioStreamPlayer2D.new()
+	var fx_player = AudioStreamPlayer.new()
 	fx_player.stream = aud_stream
 	fx_player.name = "FX_PLAYER"
 	fx_player.volume_db = volume

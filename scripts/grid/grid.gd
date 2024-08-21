@@ -35,7 +35,7 @@ var _block_shape_spawn: bool = false # some spagetti to disallow spamming the cr
 var reset_tween: Tween
 
 var shape_filled_sfx := preload("res://assets/sfx/Shape Forge.wav")
-var reset_transform_sfx := preload("res://assets/sfx/Reset Grid.wav")
+var reset_transform_sfx := preload("res://assets/sfx/Reset Grid 2.wav")
 
 func _ready() -> void:	
 	for i in Vector3(-(grid_size.x - 1)/2, grid_size.x/2, 1):
